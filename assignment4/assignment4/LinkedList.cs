@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace assignment4
+﻿namespace assignment4
 {
     public class LinkedList<T>
     {
@@ -21,12 +15,28 @@ namespace assignment4
         }
 
         private Node<T> head;
-        private Node<T> tail;
 
         public LinkedList() 
         {
-            
+           head = new Node<T> (default (T));
         }
 
+        //头插法
+        public void Add(T value)
+        {
+            Node<T> temp = new Node<T>(value);
+            temp.Next = head.Next;
+            head.Next = temp;
+        }
+
+        public static void Foreach(LinkedList<T> lst, Action<T> action) 
+        {
+            Node<T>? cur = lst.head.Next;
+            while (cur != null) 
+            {
+                action(cur.Value);
+                cur = cur.Next;
+            }
+        }
     }
 }
