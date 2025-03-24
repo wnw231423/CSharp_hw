@@ -13,7 +13,7 @@ namespace OrderCLI
      *     2. 使用AddGood,RemoveGood来订单中添加或者删除一个或者多个商品
      *     3. 使用CommitOrder来确认并提交订单，订单会保存到系统中，订单中的元数据以提交时为准
      *     4. 使用UndoOrder来撤回已提交订单，从而继续修改
-     *     4. 可以使用来查询订单
+     *     4. 可以使用各个"SelectBy___"来查询订单
      */
     public class OrderService {
         /* Implementation Doc
@@ -22,7 +22,7 @@ namespace OrderCLI
          */
 
         // 订单列表，存储所有的订单
-        private static List<Order> orders = new List<Order>();
+        private static List<Order> Orders = new List<Order>();
 
         // 一个OrderService实例只能服务一个用户
         private string User {  get; set; }
@@ -55,7 +55,7 @@ namespace OrderCLI
                 throw new Exception("需要先创建订单！");
             }
             Order orderToCommit = new Order(User, DateTime.Now, CurrentOrderDetail);
-            foreach (var order in orders) {
+            foreach (var order in Orders) {
                 if (order.Equals(orderToCommit)) {
                     throw new Exception("订单重复！");
                 }
@@ -64,7 +64,7 @@ namespace OrderCLI
         }
 
         public void UndoOrder(int id) {
-            var undo = orders.Find(order => order.Id == id);
+            var undo = Orders.Find(order => order.Id == id);
             if (undo == null) {
                 throw new Exception("该订单号不存在！");
             }
@@ -74,8 +74,38 @@ namespace OrderCLI
             CurrentOrderDetail = undo.Details;  // TODO: 再次提交订单后，订单ID将会改变。后面添加数据库之后，可能会涉及到ID方面的问题
         }
 
-        private static List<Order> SelectOrder(Func<Order, bool> condition) { 
-            
+        public static List<Order> SelectById(int id)
+        {
+            var res = from order in Orders where order.Id == id orderby order.Details.GetTotalPrice() select order;
+            return (List<Order>)res;
+        }
+
+        public static List<Order> SelectByUser(string user) {
+            var res = from order in Orders where order.Buyer == user orderby order.Details.GetTotalPrice() select order;
+            return (List<Order>)res;
+        }
+
+        public static List<Order> SelectByPrice(double min, double max)
+        {
+            var res = from order in Orders 
+                      where order.Details.GetTotalPrice() >= min && order.Details.GetTotalPrice() <= max 
+                      orderby order.Details.GetTotalPrice() 
+                      select order;
+            return (List<Order>)res;
+        }
+
+        public static List<Order> SelectByGood(string goodName)
+        {
+            var res = from order in Orders
+                      where order.Details.ContainGood(goodName)
+                      orderby order.Details.GetTotalPrice()
+                      select order;
+            return (List<Order>)res;
+        }
+
+        public static void SortOrders(Comparison<Order> sortFunc) {
+            //TODO: need test.
+            Orders.Sort(sortFunc);
         }
     }
 }

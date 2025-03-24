@@ -21,6 +21,11 @@ namespace OrderCLI.entity
             TotalPrice += n * g.Price;
         }
 
+        public bool ContainGood(string goodName) { 
+            //required by OrderService.SelectByGood
+            return Goods.Any(g => g.Key.Name == goodName);
+        }
+
         public void RemoveGood(Good g) {
             // TODO: 可能需要改进，移除多少数目，而不是全部移除
             Goods.Remove(g);
