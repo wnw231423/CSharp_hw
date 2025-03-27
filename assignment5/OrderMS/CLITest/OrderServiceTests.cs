@@ -29,6 +29,7 @@ namespace OrderCLI.Tests
 
             // 模拟一个用户行为
             service = new OrderService("Tester");
+            OrderService.ClearOrders();
 
             // 提交一个订单
             service.CreateOrder();
@@ -37,6 +38,14 @@ namespace OrderCLI.Tests
             service.CommitOrder();
 
             // 提交第二个订单
+            service.CreateOrder();
+            service.AddGood(goods[2], 5);
+            service.CommitOrder();
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(Exception))]
+        public void CommitOrderTest() {
             service.CreateOrder();
             service.AddGood(goods[2], 5);
             service.CommitOrder();
@@ -53,16 +62,21 @@ namespace OrderCLI.Tests
         }
 
         [TestMethod()]
-        public void SortOrdersTest() {
+        public void SortOrdersTest()
+        {
             Console.WriteLine("自定义排序前: ");
-            foreach (var item in OrderService.GetOrders()) { 
+            foreach (var item in OrderService.GetOrders())
+            {
                 Console.WriteLine(item);
             }
             Console.WriteLine("自定义排序后: ");
             OrderService.SortOrders((o1, o2) => 1);
-            foreach (var item in OrderService.GetOrders()) {
+            foreach (var item in OrderService.GetOrders())
+            {
                 Console.WriteLine(item);
             }
         }
+
+        
     }
 }

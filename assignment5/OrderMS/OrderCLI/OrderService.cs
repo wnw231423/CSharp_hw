@@ -60,6 +60,7 @@ namespace OrderCLI
                     throw new Exception("订单重复！");
                 }
             }
+            Orders.Add(orderToCommit);
             CurrentOrderDetail = null;
         }
 
@@ -100,7 +101,7 @@ namespace OrderCLI
                       where order.Details.ContainGood(goodName)
                       orderby order.Details.GetTotalPrice()
                       select order;
-            return (List<Order>)res;
+            return res.ToList();
         }
 
         public static void SortOrders(Comparison<Order> sortFunc) {
@@ -110,6 +111,10 @@ namespace OrderCLI
 
         public static List<Order> GetOrders() { 
             return Orders;
+        }
+
+        public static void ClearOrders() { 
+            Orders = new List<Order>();
         }
     }
 }

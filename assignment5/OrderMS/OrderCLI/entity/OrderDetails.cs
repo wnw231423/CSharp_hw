@@ -37,18 +37,27 @@ namespace OrderCLI.entity
             StringBuilder sb = new StringBuilder();
             sb.Append("订单明细:");
             foreach (KeyValuePair<Good, int> pair in Goods) {
-                sb.Append($"\n  * {pair.Key}\tx{pair.Value}"); 
+                sb.Append($"\n  * {pair.Key}\t x{pair.Value}"); 
             }
-            sb.Append($"\n  总价: {TotalPrice}");
+            sb.Append($"\n  总价: {TotalPrice.ToString("0.00")}");
 
             return sb.ToString();
         }
 
         public override bool Equals(object? obj)
         {
-            return obj is OrderDetails details &&
-                   EqualityComparer<Dictionary<Good, int>>.Default.Equals(Goods, details.Goods) &&
-                   TotalPrice == details.TotalPrice;
+            if (!(obj is OrderDetails)) return false;
+            var details = (OrderDetails)obj;
+
+            if (Goods.Count != details.Goods.Count) return false;
+
+            foreach (var kv in Goods) {
+                if (!details.Goods.TryGetValue(kv.Key, out int num) || num != kv.Value) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public override int GetHashCode()

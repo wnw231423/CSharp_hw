@@ -20,12 +20,14 @@ namespace OrderCLI.entity
             this.Id = _id++;
         }
 
+        public OrderDetails GetOrderDetails() { return this.Details; }
+
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append("***订单信息***\n");
-            sb.Append($"订单号:\t{Id}");
-            sb.Append($"创建者:\t{Buyer}");
-            sb.Append($"创建时间:\t{Date}");
+            sb.Append($"订单号:\t{Id}\n");
+            sb.Append($"创建者:\t{Buyer}\n");
+            sb.Append($"创建时间:\t{Date}\n");
             sb.Append($"{Details}");
 
             return sb.ToString();
@@ -35,7 +37,7 @@ namespace OrderCLI.entity
         public override bool Equals(object? obj) {
             return obj is Order order &&
                    Buyer == order.Buyer &&
-                   EqualityComparer<OrderDetails>.Default.Equals(Details, order.Details);
+                   Details.Equals(order.GetOrderDetails());
         }
 
         public override int GetHashCode() {
