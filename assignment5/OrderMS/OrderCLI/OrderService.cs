@@ -107,5 +107,9 @@ namespace OrderCLI
             //TODO: need test.
             Orders.Sort(sortFunc);
         }
+
+        public static List<Order> GetOrders() { 
+            return Orders;
+        }
     }
 }
