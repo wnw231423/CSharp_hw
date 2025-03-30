@@ -18,6 +18,8 @@ namespace OrderCLI.Tests
         [TestInitialize]
         public void init()
         {
+            User t = new User(1, "Tester", true);
+
             // 初始化一些商品
             Good apple = new Good("apple", 1.99);
             Good banana = new Good("banana", 2.99);
@@ -27,9 +29,9 @@ namespace OrderCLI.Tests
             goods.Add(banana);
             goods.Add(cheeze);
 
-            // 模拟一个用户行为
-            service = new OrderService("Tester");
-            OrderService.ClearOrders();
+            // 模拟一个管理者兼用户行为
+            service = new OrderService(t);
+            service.ClearOrders();
 
             // 提交一个订单
             service.CreateOrder();
@@ -54,7 +56,7 @@ namespace OrderCLI.Tests
         [TestMethod()]
         public void SelectByGoodTest()
         {
-            List<Order> res = OrderService.SelectByGood("cheeze");
+            List<Order> res = service.SelectByGood("cheeze");
             foreach (Order item in res)
             {
                 Console.WriteLine(item);
@@ -65,18 +67,16 @@ namespace OrderCLI.Tests
         public void SortOrdersTest()
         {
             Console.WriteLine("自定义排序前: ");
-            foreach (var item in OrderService.GetOrders())
+            foreach (var item in service.GetOrders())
             {
                 Console.WriteLine(item);
             }
             Console.WriteLine("自定义排序后: ");
-            OrderService.SortOrders((o1, o2) => 1);
-            foreach (var item in OrderService.GetOrders())
+            service.SortOrders((o1, o2) => 1);
+            foreach (var item in service.GetOrders())
             {
                 Console.WriteLine(item);
             }
-        }
-
-        
+        }  
     }
 }

@@ -1,7 +1,9 @@
 ﻿using OrderCLI.entity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,17 +21,28 @@ namespace OrderCLI
         /* Implementation Doc
          * 1. 整体实现思路类似于git，可以add和rm商品，只有在最后提交时才会进行“重复检查”
          * 2. 缺点，在提交一个订单之前不能创建并处理第二个订单，必须把当前订单提交后才能处理第二个订单
+         * 3. 当用户使用时，会从TotalOrders中拉取一个副本，用户在副本中操作，最后结束时用户退出，
+         *    CommitService再把副本的更新内容写回TotalOrders.
          */
 
         // 订单列表，存储所有的订单
-        private static List<Order> Orders = new List<Order>();
+        private static HashSet<Order> TotalOrders = new HashSet<Order>();
 
         // 一个OrderService实例只能服务一个用户
-        private string User {  get; set; }
+        private User User;
+        private List<Order> Orders;
         private OrderDetails? CurrentOrderDetail;
 
-        public OrderService(string user) { 
+        public OrderService(User user) { 
             this.User = user;
+            if (User.IsAdmin)
+            {
+                Orders = TotalOrders.ToList();
+            }
+            else
+            {
+                Orders = TotalOrders.Where(o => o.Buyer.Equals(User)).ToList();
+            }
         }
 
         public void CreateOrder() { 
@@ -61,6 +74,7 @@ namespace OrderCLI
                 }
             }
             Orders.Add(orderToCommit);
+            TotalOrders.Add(orderToCommit); // 维持一致性
             CurrentOrderDetail = null;
         }
 
@@ -72,30 +86,39 @@ namespace OrderCLI
             if (undo.Buyer != User) {
                 throw new Exception("该订单您无权修改！");
             }
+            TotalOrders.Remove(undo);  // 维持一致性
+            Orders.Remove(undo);
             CurrentOrderDetail = undo.Details;  // TODO: 再次提交订单后，订单ID将会改变。后面添加数据库之后，可能会涉及到ID方面的问题
         }
 
-        public static List<Order> SelectById(int id)
-        {
-            var res = from order in Orders where order.Id == id orderby order.Details.GetTotalPrice() select order;
-            return (List<Order>)res;
+        public Order SelectById(int id) {
+            var query = from order in Orders where order.Id == id orderby order.Details.GetTotalPrice() select order;
+            var res = query.ToList();
+            if (res.Count != 1)
+            {
+                throw new Exception("查找失败！");
+            }
+            //else if ((!res.First().Buyer.IsAdmin) && res.First().Buyer != User) {
+            //    throw new Exception("该订单您无权查看！");
+            //}
+            return res.First();
         }
 
-        public static List<Order> SelectByUser(string user) {
-            var res = from order in Orders where order.Buyer == user orderby order.Details.GetTotalPrice() select order;
-            return (List<Order>)res;
+        public List<Order> SelectByUser(string user) {
+            // This function could only be meaningful for admins
+            var res = from order in Orders where order.Buyer.Name == user orderby order.Details.GetTotalPrice() select order;
+            return res.ToList();
         }
 
-        public static List<Order> SelectByPrice(double min, double max)
-        {
-            var res = from order in Orders 
+        public List<Order> SelectByPrice(double min, double max) {
+            var query = from order in Orders 
                       where order.Details.GetTotalPrice() >= min && order.Details.GetTotalPrice() <= max 
                       orderby order.Details.GetTotalPrice() 
                       select order;
-            return (List<Order>)res;
+            return query.ToList();
         }
 
-        public static List<Order> SelectByGood(string goodName)
+        public List<Order> SelectByGood(string goodName)
         {
             var res = from order in Orders
                       where order.Details.ContainGood(goodName)
@@ -104,16 +127,19 @@ namespace OrderCLI
             return res.ToList();
         }
 
-        public static void SortOrders(Comparison<Order> sortFunc) {
-            //TODO: need test.
+        public void SortOrders(Comparison<Order> sortFunc) {
             Orders.Sort(sortFunc);
         }
 
-        public static List<Order> GetOrders() { 
+        public List<Order> GetOrders() { 
             return Orders;
         }
 
-        public static void ClearOrders() { 
+        public void ClearOrders() { 
+            foreach (var order in Orders)
+            {
+                TotalOrders.Remove(order);  // 维持一致性
+            }
             Orders = new List<Order>();
         }
     }

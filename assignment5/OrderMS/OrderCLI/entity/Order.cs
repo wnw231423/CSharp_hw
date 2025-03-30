@@ -9,11 +9,11 @@ namespace OrderCLI.entity
     public class Order {
         private static int _id = 1;
         public int Id { get; set; }
-        public string Buyer { get; set; }
+        public User Buyer { get; set; }
         public DateTime Date { get; set; }
         public OrderDetails Details;
 
-        public Order(string Buyer, DateTime date, OrderDetails d) {
+        public Order(User Buyer, DateTime date, OrderDetails d) {
             this.Buyer = Buyer;
             this.Date = date;
             this.Details = d;
@@ -26,7 +26,7 @@ namespace OrderCLI.entity
             StringBuilder sb = new StringBuilder();
             sb.Append("***订单信息***\n");
             sb.Append($"订单号:\t{Id}\n");
-            sb.Append($"创建者:\t{Buyer}\n");
+            sb.Append($"创建者:\t{Buyer.Name}\n");
             sb.Append($"创建时间:\t{Date}\n");
             sb.Append($"{Details}");
 
