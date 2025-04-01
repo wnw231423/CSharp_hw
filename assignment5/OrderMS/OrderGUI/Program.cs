@@ -16,8 +16,16 @@ namespace OrderGUI
         }
 
         static void Init() {
-            User.Users.Add(new User(1, "Tester", true));
-            User.Users.Add(new User(2, "Bob", false));
+            User tester = new User(1, "Tester", true);
+            User bob = new User(2, "Bob", false);
+            User.Users.Add(tester);
+            User.Users.Add(bob);
+
+            Good apple = new Good("Æ»¹û", 1.99);
+            OrderDetails orderDetails = new OrderDetails();
+            orderDetails.AddGood(apple, 2);
+            Order order = new Order(tester, DateTime.Now, orderDetails);
+            OrderService.TotalOrders.Add(order);
         }
     }
 }

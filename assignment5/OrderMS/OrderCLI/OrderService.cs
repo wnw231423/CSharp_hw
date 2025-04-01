@@ -26,7 +26,7 @@ namespace OrderCLI
          */
 
         // 订单列表，存储所有的订单
-        private static HashSet<Order> TotalOrders = new HashSet<Order>();
+        public static HashSet<Order> TotalOrders = new HashSet<Order>();
 
         // 一个OrderService实例只能服务一个用户
         private User User;

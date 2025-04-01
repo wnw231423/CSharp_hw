@@ -40,8 +40,8 @@ namespace OrderGUI
         {
             ShowMain();
             service = new OrderService(UserSelect.SelectedItem as User);
-            dataGridView1.DataSource = dv1_data;
             dv1_data = service.GetOrders();
+            dataGridView1.DataSource = dv1_data;
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
