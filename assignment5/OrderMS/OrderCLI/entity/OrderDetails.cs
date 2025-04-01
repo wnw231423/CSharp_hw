@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OrderCLI.entity
 {
     public class OrderDetails {
-        private Dictionary<Good, int> Goods;
+        public Dictionary<Good, int> Goods { get; }
         private double TotalPrice;
 
         public OrderDetails() {
