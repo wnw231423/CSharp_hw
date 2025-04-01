@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderCLI", "OrderCLI\OrderC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLITest", "CLITest\CLITest.csproj", "{D079AFB1-50A5-4090-9D55-4FBADFF0088D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderGUI", "OrderGUI\OrderGUI.csproj", "{3E6D1020-2A0C-4941-8DBC-F8B3FC636B48}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{D079AFB1-50A5-4090-9D55-4FBADFF0088D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D079AFB1-50A5-4090-9D55-4FBADFF0088D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D079AFB1-50A5-4090-9D55-4FBADFF0088D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E6D1020-2A0C-4941-8DBC-F8B3FC636B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E6D1020-2A0C-4941-8DBC-F8B3FC636B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E6D1020-2A0C-4941-8DBC-F8B3FC636B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E6D1020-2A0C-4941-8DBC-F8B3FC636B48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
