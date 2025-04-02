@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderCLI", "OrderCLI\OrderC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLITest", "CLITest\CLITest.csproj", "{D079AFB1-50A5-4090-9D55-4FBADFF0088D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderGUI", "OrderGUI\OrderGUI.csproj", "{D3071B7E-26E7-4DA2-8FF0-0D4295E6C7D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D079AFB1-50A5-4090-9D55-4FBADFF0088D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D079AFB1-50A5-4090-9D55-4FBADFF0088D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D079AFB1-50A5-4090-9D55-4FBADFF0088D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3071B7E-26E7-4DA2-8FF0-0D4295E6C7D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3071B7E-26E7-4DA2-8FF0-0D4295E6C7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3071B7E-26E7-4DA2-8FF0-0D4295E6C7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3071B7E-26E7-4DA2-8FF0-0D4295E6C7D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
