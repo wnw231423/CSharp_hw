@@ -4,11 +4,20 @@ namespace OrderCLI.Models;
 
 public class OrderContext: DbContext
 {
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<OrderDetail> OrderDetails { get; set; }
-    public DbSet<User> Users { get; set; }
     public DbSet<Good> Goods { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    
+    public string DbPath { get; }
+
+    public OrderContext()
+    {
+        string basePath = AppDomain.CurrentDomain.BaseDirectory;
+        string dbPath = Path.Combine(basePath, "Orders.db");
+        DbPath = dbPath;
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlite("./Data/Orders.db");
+        => optionsBuilder.UseSqlite($"Data Source={DbPath}");
 }

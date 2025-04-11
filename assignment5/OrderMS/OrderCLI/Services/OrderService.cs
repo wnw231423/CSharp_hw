@@ -7,17 +7,21 @@ public class OrderService
 {
     public OrderService()
     {
-        using var ctx = new OrderContext();
-        if (ctx.Goods.Count() == 0)
+        using (var ctx = new OrderContext())
         {
-            ctx.Goods.Add(new Good("Apple", 9.9m));
-            ctx.Goods.Add(new Good("Banana", 5.5m));
-        }
+            if (!ctx.Goods.Any())
+            {
+                ctx.Goods.Add(new Good("Apple", 9.9m));
+                ctx.Goods.Add(new Good("Banana", 5.5m));
+                ctx.SaveChanges();
+            }
 
-        if (ctx.Users.Count() == 0)
-        {
-            ctx.Users.Add(new User("Alice", true));
-            ctx.Users.Add(new User("Bob", false));
+            if (!ctx.Users.Any())
+            {
+                ctx.Users.Add(new User("Alice", true));
+                ctx.Users.Add(new User("Bob", false));
+                ctx.SaveChanges();
+            }
         }
     }
 
