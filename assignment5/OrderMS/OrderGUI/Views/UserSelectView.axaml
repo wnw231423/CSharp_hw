@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OrderGUI.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="OrderGUI.Views.UserSelectView"
+             x:DataType="vm:UserSelectViewModel">
+    <StackPanel VerticalAlignment="Center">
+        <ComboBox HorizontalAlignment="Center"
+                  ItemsSource="{Binding Users}"
+                  SelectedItem="{Binding SelectedUser}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        
+        <Button HorizontalAlignment="Center"
+                Command="{Binding HandleButtonClick}">
+            确认
+        </Button>
+    </StackPanel>
+    
+</UserControl>

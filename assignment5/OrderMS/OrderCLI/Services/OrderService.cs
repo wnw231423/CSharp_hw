@@ -105,4 +105,16 @@ public class OrderService
             .Where(o => min <= o.GetPrice() && o.GetPrice() <= max)
             .ToList();
     }
+
+    public List<User> GetUsers()
+    {
+        using var ctx = new OrderContext();
+        return ctx.Users.ToList();
+    }
+
+    public List<Good> GetGoods()
+    {
+        using var ctx = new OrderContext();
+        return ctx.Goods.ToList();
+    }
 }
