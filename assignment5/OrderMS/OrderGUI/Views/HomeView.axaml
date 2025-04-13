@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:OrderGUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="OrderGUI.Views.HomeView"
+             x:DataType="vm:HomeViewModel">
+    <StackPanel HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <ComboBox SelectedItem="{Binding SelectedCondition}">
+                <ComboBoxItem> 用户名 </ComboBoxItem>
+                <ComboBoxItem> ID </ComboBoxItem>
+            </ComboBox>
+            <TextBox DataContext="{Binding Condition}"></TextBox>
+        </StackPanel>
+        <Label> split </Label>
+        <SplitView DisplayMode="Inline"
+                   IsPaneOpen="True"
+                   Height="400">
+            <SplitView.Pane>
+                <StackPanel>
+                    <Label> inside </Label>
+                    <DataGrid ItemsSource="{Binding Orders}"
+                              SelectedItem="{Binding SelectedOrder}"
+                              AutoGenerateColumns="False"
+                              Height="200">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="用户" Binding="{Binding User.Name}"/>
+                            <DataGridTextColumn Header="订单总价" Binding="{Binding TotalPrice}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label> inside </Label>
+                </StackPanel>
+            </SplitView.Pane>
+            <DataGrid ItemsSource="{Binding SelectedOrder.Details}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="商品" Binding="{Binding Good}"/>
+                    <DataGridTextColumn Header="价格" Binding="{Binding Good.Price}"/>
+                    <DataGridTextColumn Header="数量" Binding="{Binding Quantity}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </SplitView>
+        <Label> split </Label>
+    </StackPanel>
+</UserControl>
