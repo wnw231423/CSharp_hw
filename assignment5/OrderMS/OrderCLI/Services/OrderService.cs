@@ -31,6 +31,7 @@ public class OrderService
         return ctx.Orders
             .Include(o => o.Details)
             .ThenInclude(d => d.Good)
+            .Include(o => o.User)
             .ToList();
     }
 

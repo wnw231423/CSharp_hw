@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace OrderGUI.ViewModels;
@@ -10,7 +11,7 @@ public partial class HomeViewModel: ViewModelBase
     OrderService Service { get; set; }
     
     [ObservableProperty]
-    private List<Order> _orders;
+    private ObservableCollection<Order> _orders;
 
     [ObservableProperty] 
     private Order _selectedOrder;
@@ -26,11 +27,11 @@ public partial class HomeViewModel: ViewModelBase
         Service = sercice;
         if (!CurrentUser.IsAdmin)
         {
-          Orders = Service.SelectOrderByUserName(CurrentUser.Name);
+          Orders = new ObservableCollection<Order>(Service.SelectOrderByUserName(currentUser.Name));
         }
         else
         {
-          Orders = Service.GetOrders();
+          Orders = new ObservableCollection<Order>(Service.GetOrders());
         }
     }
 }
