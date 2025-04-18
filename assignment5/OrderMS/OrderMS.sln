@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderCLI", "OrderCLI\OrderC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderGUI", "OrderGUI\OrderGUI.csproj", "{0B1327EA-FC65-43E0-90C4-95A7CF0EC9BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApi", "OrderApi\OrderApi.csproj", "{2CE9C50A-2ACF-451A-A5E2-A58595358567}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{0B1327EA-FC65-43E0-90C4-95A7CF0EC9BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B1327EA-FC65-43E0-90C4-95A7CF0EC9BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B1327EA-FC65-43E0-90C4-95A7CF0EC9BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE9C50A-2ACF-451A-A5E2-A58595358567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE9C50A-2ACF-451A-A5E2-A58595358567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE9C50A-2ACF-451A-A5E2-A58595358567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE9C50A-2ACF-451A-A5E2-A58595358567}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
