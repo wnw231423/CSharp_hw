@@ -13,7 +13,7 @@ public class OrderContext: DbContext
 
     public OrderContext()
     {
-        string basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         string dbPath = Path.Combine(basePath, "Orders.db");
         DbPath = dbPath;
     }

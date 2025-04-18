@@ -10,7 +10,7 @@ using OrderCLI.Models;
 namespace OrderCLI.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20250412121052_Initial")]
+    [Migration("20250414023437_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
